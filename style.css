@@ -1,0 +1,12 @@
+.card-header {
+    border: 1px solid black;
+}
+
+.card-body1 {
+    height: 250px;
+    border: 1px solid black;
+}
+
+.card-body {
+    height: 200px;
+}
