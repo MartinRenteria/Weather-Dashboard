@@ -26,6 +26,13 @@ var forecast5 = "https://api.openweathermap.org/data/2.5/forecast?q=" + cities +
   $(".resultTemp").text("Temperature: " + tempF.toFixed(2) + " °F");
   $(".resultHum").text("Humidity: " + response.main.humidity + "%");
   $(".resultWind").text("Wind Speed: " + response.wind.speed + " MPH");
-  })}
 
-  
+  $("#listButton").on("click", "button", function () {
+
+    var cities = $(this).data("city");
+
+    weatherDisplay(cities);
+});
+
+
+  })}
