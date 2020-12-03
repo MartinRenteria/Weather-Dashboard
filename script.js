@@ -35,13 +35,14 @@ function weatherDisplay(city) {
     $("#resultWind").text("Wind Speed: " + response.wind.speed + " MPH");
 
   })};
+
   // Potential on click history 
-//   $("#listButton").on("click", "button", function () {
+  $("#listButton").on("click", "button", function () {
 
-//     var cities = $(this).data("city");
+    var cities = $(this).data("city");
 
-//     weatherDisplay(cities);
-// });
+    weatherDisplay(cities);
+});
 
 // function fiveDayForecast() {
 //   var city = $("#searchInput").val();
@@ -107,8 +108,9 @@ function weatherDisplay(city) {
 
 // When search button is clicken, the api will bring the data onto the screen 
 $("#searchBtn").on("click", function() {
-  console.log("it worked")
-  weatherDisplay("seattle")
+  var cityName = $("#searchInput").val();
+
+  weatherDisplay(cityName);
 })
 
 // document.getElementById("searchBtn").addEventListener("click", function() {
