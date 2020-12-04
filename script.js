@@ -32,7 +32,7 @@ function weatherDisplay(city) {
     $("#resultTemp").text("Temperature: " + tempF.toFixed(2) + " °F");
     $("#resultHum").text("Humidity: " + response.main.humidity + "%");
     $("#resultWind").text("Wind Speed: " + response.wind.speed + " MPH");
-   
+    retrieveUV(response.coord.lat, response.coord.lon);
   })};
 
 function fiveDayForecast(city) {
@@ -66,6 +66,55 @@ $(document).ready(function() {
 });
 
 })};
+
+// retrieveWeather passes the city coordinate data into retrieveUVfiveday which retrieves/color codes uv index, and then retrieves date, icon, temp and humidity for the five day forecast
+function retrieveUV(lattitude, longitude) {
+
+  var queryURLUV = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lattitude + "&lon=" + longitude + "&exclude=minutely,hourly,alerts&appid=" + apiKey + "&units=imperial";
+
+  // Performing our AJAX GET request
+  $.ajax({
+      url: queryURLUV,
+      method: "GET"
+  })
+
+      .then(function (responseUV) {
+
+          console.log(responseUV);
+
+          $("#resultUV").removeClass();
+
+          $("#resultUV").text(responseUV.current.uvi);
+
+          if (responseUV.current.uvi < 3) {
+
+              $("#resultUV").addClass("uv-low text-white p-1 rounded");
+
+          }
+
+          else if (responseUV.current.uvi >= 3 && responseUV.current.uvi < 6) {
+
+              $("#resultUV").addClass("uv-moderate text-black p-1 rounded");
+          }
+
+          else if (responseUV.current.uvi >= 6 && responseUV.current.uvi < 8) {
+
+              $("#resultUV").addClass("uv-high text-white p-1 rounded");
+          }
+
+          else if (responseUV.current.uvi >= 8 && responseUV.current.uvi < 11) {
+
+              $("#resultUV").addClass("uv-very-high text-white p-1 rounded");
+          }
+
+          else if (responseUV.current.uvi >= 11) {
+
+              $("#resultUV").addClass("uv-extreme text-white p-1 rounded");
+          }
+          // Removes the "hide" class from the weather display section of the page
+          $("#card-body").removeClass("d-none");
+      })
+}
 
 // When search button is clicken, the api will bring the data onto the screen 
 $("#searchBtn").on("click", function() {
