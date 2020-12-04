@@ -82,12 +82,11 @@ for (i = 0; i < response5.length; i++) {
 
 // When search button is clicken, the api will bring the data onto the screen 
 $("#searchBtn").on("click", function() {
+
   var cityName = $("#searchInput").val();
-  
 
   var cityBtn = $(`<button class = "list-group-item myBtn" data-city="${cityName}">${cityName}</button>`);
   $("#city-list").prepend(cityBtn);
-  console.log(cityName);
 
   savedSearch.push(cityName);
   localStorage.setItem("pastForecastHistory", JSON.stringify(savedSearch));
@@ -102,4 +101,5 @@ $("#cities-list").on("click", "button", function () {
   var cityName = $(this).data("city");
 
   weatherDisplay(cityName);
+  fiveDayForecast(cityName)
 });
