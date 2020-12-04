@@ -12,7 +12,7 @@ for (i = 0; i < savedSearch.length; i++) {
 // Displays search data of cities onto weather div container
 function weatherDisplay(city) {
 
-  // URL link to specific data of desired data
+  // URL link to desired data
   var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=imperial";
   // Performing ajax call for single day weather data 
     $.ajax({
@@ -32,16 +32,8 @@ function weatherDisplay(city) {
     $("#resultTemp").text("Temperature: " + tempF.toFixed(2) + " °F");
     $("#resultHum").text("Humidity: " + response.main.humidity + "%");
     $("#resultWind").text("Wind Speed: " + response.wind.speed + " MPH");
-
+   
   })};
-
-//   // Potential on click history 
-//   $("#listButton").on("click", "button", function () {
-
-//     var cities = $(this).data("city");
-
-//     weatherDisplay(cities);
-// });
 
 function fiveDayForecast(city) {
 
@@ -58,31 +50,27 @@ var response5 = response5.list;
 $(document).ready(function() {
 
   $("#date").text(`(${moment().format("l")})`);
-  for (i = 1; i < 7; i++) {
+    for (i = 1; i < 7; i++) {
       var forecastDate = $(`#date${i}`);
       forecastDate.text(moment().add(`${i}`, "d").format("l"));
-  };
+
+    };
+
+    for (i = 0; i < response5.length; i++) {
+
+        $("#weatherIcon" + i).attr("src", "https://openweathermap.org/img/wn/" + (response5[i].weather[0].icon) + "@2x.png");
+        $("#temp" + i).text("Temp: " + Math.round(response5[i].main.temp) + " °F");
+        $("#humid" + i).text("Humidity: " + response5[i].main.humidity + "%");
+      
+      }
 });
 
-for (i = 0; i < response5.length; i++) {
-
-  $("#weatherIcon" + i).attr("src", "https://openweathermap.org/img/wn/" + (response5[i].weather[0].icon) + "@2x.png");
-  $("#temp" + i).text("Temp: " + Math.round(response5[i].main.temp) + " °F");
-  $("#humid" + i).text("Humidity: " + response5[i].main.humidity + "%");
-
-
-}
-
 })};
-
-// // function UVforecast()
 
 // When search button is clicken, the api will bring the data onto the screen 
 $("#searchBtn").on("click", function() {
 
     var cityName = $("#searchInput").val();
-
-    if (savedSearch.includes(cityName)) {
 
     var cityBtn = $(`<button class="list-group-item" data-city="${cityName}">${cityName}</button>`);
   
@@ -91,7 +79,7 @@ $("#searchBtn").on("click", function() {
     savedSearch.push(cityName);
 
     localStorage.setItem("pastForecastHistory", JSON.stringify(savedSearch));
-  }
+  
 
     weatherDisplay(cityName);
     fiveDayForecast(cityName)
