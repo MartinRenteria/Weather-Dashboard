@@ -3,6 +3,12 @@ var apiKey = "ded885a5140a03bceffcd25035fcab57"
 // Saves city into local storage 
 var savedSearch = JSON.parse(localStorage.getItem("pastForecastHistory")) || [];
 
+for (i = 0; i < savedSearch.length; i++) {
+
+  var cityBtn = $(`<button class="list-group-item" data-city="${savedSearch[i]}">${savedSearch[i]}</button>`);
+
+  $("#city-list").prepend(cityBtn);
+}
 // Displays search data of cities onto weather div container
 function weatherDisplay(city) {
 
@@ -69,37 +75,33 @@ for (i = 0; i < response5.length; i++) {
 
 })};
 
-// // Adds functionality to the buttons generated in the list group, uses the data-city value passed into each button to get value
-// $("#cities-list").on("click", "button", function () {
-
-//   var citySearched = $(this).data("city");
-
-//   weatherDisplay(citySearched);
-// });
-
-// })});
 // // function UVforecast()
 
 // When search button is clicken, the api will bring the data onto the screen 
 $("#searchBtn").on("click", function() {
 
-  var cityName = $("#searchInput").val();
+    var cityName = $("#searchInput").val();
 
-  var cityBtn = $(`<button class = "list-group-item myBtn" data-city="${cityName}">${cityName}</button>`);
-  $("#city-list").prepend(cityBtn);
+    if (savedSearch.includes(cityName)) {
 
-  savedSearch.push(cityName);
-  localStorage.setItem("pastForecastHistory", JSON.stringify(savedSearch));
+    var cityBtn = $(`<button class="list-group-item" data-city="${cityName}">${cityName}</button>`);
+  
+    $("#city-list").prepend(cityBtn);
 
-  weatherDisplay(cityName);
-  fiveDayForecast(cityName)
+    savedSearch.push(cityName);
+
+    localStorage.setItem("pastForecastHistory", JSON.stringify(savedSearch));
+  }
+
+    weatherDisplay(cityName);
+    fiveDayForecast(cityName)
 
 });
 
 $("#cities-list").on("click", "button", function () {
 
-  var cityName = $(this).data("city");
+    var cityName = $(this).data("city");
 
-  weatherDisplay(cityName);
-  fiveDayForecast(cityName)
+    weatherDisplay(cityName);
+    fiveDayForecast(cityName)
 });
