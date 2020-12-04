@@ -1,14 +1,8 @@
 var apiKey = "ded885a5140a03bceffcd25035fcab57"
 
 // Saves city into local storage 
-// var savedSearch = JSON.parse(localStorage.getItem("pastForecastHistory")) || [];
+var savedSearch = JSON.parse(localStorage.getItem("pastForecastHistory")) || [];
 
-// for (i = 0; i < savedSearch.length; i++) {
-
-//   var createBtn = $(`<button class="list-group-item" data-city="${savedSearch[i]}">${savedSearch[i]}</button>`);
-
-//   $("#city-list").prepend(createBtn);
-// }
 // Displays search data of cities onto weather div container
 function weatherDisplay(city) {
 
@@ -83,31 +77,29 @@ for (i = 0; i < response5.length; i++) {
 //   weatherDisplay(citySearched);
 // });
 
-
-//   var buttonSearch = "https://api.openweathermap.org/data/2.5/weather?q=" + listButton + "&APPID=" + apiKey;
-// // Performing ajax call for single day weather data 
-//   $.ajax({
-//       url: buttonSearch,
-//       method: "GET"
-//   }).then(function (response) {
-//   console.log(response);
-
-//   var tempF = (response.main.temp - 273.15) * 1.80 + 32;
-//   var todayDate = moment().format("MM/DD/YYYY");
-
-//   // Draws APi Data to weather div container
-//   $(".city").html("<h3>" + response.name + " " + todayDate + "</h3>");
-//   $(".resultTemp").text("Temperature: " + tempF.toFixed(2) + " °F");
-//   $(".resultHum").text("Humidity: " + response.main.humidity + "%");
-//   $(".resultWind").text("Wind Speed: " + response.wind.speed + " MPH");
-
 // })});
 // // function UVforecast()
 
 // When search button is clicken, the api will bring the data onto the screen 
 $("#searchBtn").on("click", function() {
   var cityName = $("#searchInput").val();
+  
+
+  var cityBtn = $(`<button class = "list-group-item myBtn" data-city="${cityName}">${cityName}</button>`);
+  $("#city-list").prepend(cityBtn);
+  console.log(cityName);
+
+  savedSearch.push(cityName);
+  localStorage.setItem("pastForecastHistory", JSON.stringify(savedSearch));
 
   weatherDisplay(cityName);
   fiveDayForecast(cityName)
-})
+
+});
+
+$("#cities-list").on("click", "button", function () {
+
+  var cityName = $(this).data("city");
+
+  weatherDisplay(cityName);
+});
