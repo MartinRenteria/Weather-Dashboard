@@ -53,38 +53,27 @@ $.ajax({
 }).then(function (response5) {
 console.log(response5);
 
-var todayDate = moment().format("MM/DD/YYYY");
+var response5 = response5.list;
+
+$(document).ready(function() {
+
+  $("#date").text(`(${moment().format("l")})`);
+  for (i = 1; i < 7; i++) {
+      var forecastDate = $(`#date${i}`);
+      forecastDate.text(moment().add(`${i}`, "d").format("l"));
+  };
+});
+
+for (i = 0; i < response5.length; i++) {
+
+  $("#weatherIcon" + i).attr("src", "https://openweathermap.org/img/wn/" + (response5[i].weather[0].icon) + "@2x.png");
+  $("#temp" + i).text("Temp: " + Math.round(response5[i].main.temp) + " °F");
+  $("#humid" + i).text("Humidity: " + response5[i].main.humidity + "%");
 
 
-for (i = 1; i < 6; i++) {
-
-  $("#date" + i).text(todayDate(response5.daily[i].dt));
-
-  $("#weatherIcon" + i).attr("src", "https://openweathermap.org/img/wn/" + (response5.daily[i].weather[0].icon) + "@2x.png");
-
-  $("#temp" + i).text("Temp: " + response5.daily[i].temp.day + "° F");
-
-  $("#humid" + i).text("Humidity: " + response5.daily[i].humidity + "%");
 }
 
 })};
-
-
-// $("#searchBtn").on("click", function () {
-
-//   var citySearched = titleCase($("#searchCity").val());
-
-//   if (!savedSearch.includes(citySearched)) {
-
-//       var createBtn = $(`<button class="list-group-item" data-city="${citySearched}">${citySearched}</button>`);
-
-//       $("#city-list").prepend(createBtn);
-
-//       savedSearch.push(citySearched);
-
-//       localStorage.setItem("PreviousForecastSearches", JSON.stringify(savedSearch));
-//   }
-
 
 // // Adds functionality to the buttons generated in the list group, uses the data-city value passed into each button to get value
 // $("#cities-list").on("click", "button", function () {
@@ -94,6 +83,23 @@ for (i = 1; i < 6; i++) {
 //   weatherDisplay(citySearched);
 // });
 
+
+//   var buttonSearch = "https://api.openweathermap.org/data/2.5/weather?q=" + listButton + "&APPID=" + apiKey;
+// // Performing ajax call for single day weather data 
+//   $.ajax({
+//       url: buttonSearch,
+//       method: "GET"
+//   }).then(function (response) {
+//   console.log(response);
+
+//   var tempF = (response.main.temp - 273.15) * 1.80 + 32;
+//   var todayDate = moment().format("MM/DD/YYYY");
+
+//   // Draws APi Data to weather div container
+//   $(".city").html("<h3>" + response.name + " " + todayDate + "</h3>");
+//   $(".resultTemp").text("Temperature: " + tempF.toFixed(2) + " °F");
+//   $(".resultHum").text("Humidity: " + response.main.humidity + "%");
+//   $(".resultWind").text("Wind Speed: " + response.wind.speed + " MPH");
 
 // })});
 // // function UVforecast()

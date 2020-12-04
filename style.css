@@ -2,11 +2,21 @@
     border: 1px solid black;
 }
 
-.card-body1 {
+.card-body {
     height: 250px;
-    border: 1px solid black;
+    border-width: 1px;
+  }
+
+.col-2 {
+    width: 16%;
+    height: 200px;
+    padding: 15px;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    color: white;
 }
 
-.card-body {
-    height: 200px;
+.apiImage {
+    height: 60px;
 }
