@@ -46,3 +46,11 @@ You are required to submit the following for review:
 
 - - -
 © 2019 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
+
+<br><br>
+
+Links:
+<br>
+Deployed Link: https://martinrenteria.github.io/Weather-Dashboard/
+<br>
+Repo Link: https://github.com/MartinRenteria/Weather-Dashboard
