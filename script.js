@@ -112,7 +112,7 @@ function retrieveUV(lattitude, longitude) {
               $("#resultUV").addClass("uv-extreme text-white p-1 rounded");
           }
           // Removes the "hide" class from the weather display section of the page
-          $("#card-body").removeClass("d-none");
+          $("#weatherBox").removeClass("d-none");
       })
 }
 
