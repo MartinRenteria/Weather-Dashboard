@@ -35,6 +35,7 @@ function weatherDisplay(city) {
     retrieveUV(response.coord.lat, response.coord.lon);
   })};
 
+  // Five day weather forecast
 function fiveDayForecast(city) {
 
   var forecast5 = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + apiKey + "&units=imperial";
@@ -67,12 +68,11 @@ $(document).ready(function() {
 
 })};
 
-// retrieveWeather passes the city coordinate data into retrieveUVfiveday which retrieves/color codes uv index, and then retrieves date, icon, temp and humidity for the five day forecast
+// UV Ajax Request
 function retrieveUV(lattitude, longitude) {
 
   var queryURLUV = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lattitude + "&lon=" + longitude + "&exclude=minutely,hourly,alerts&appid=" + apiKey + "&units=imperial";
 
-  // Performing our AJAX GET request
   $.ajax({
       url: queryURLUV,
       method: "GET"
@@ -135,6 +135,7 @@ $("#searchBtn").on("click", function() {
 
 });
 
+// Generates API information that was saved in local storage to be recalled again. 
 $("#cities-list").on("click", "button", function () {
 
     var cityName = $(this).data("city");
