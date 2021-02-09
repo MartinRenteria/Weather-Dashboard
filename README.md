@@ -24,7 +24,7 @@ I am the sole contributor on this project.
 # Screenshot
 Here is a mock of the Weather App.
 
-![Weather_App](\Develop\Assets\Images\weather.png)
+![Weather_App](Develop\Assets\Images\weather.png)
 
 # Link
 Take a look at the live version [here.](https://martinrenteria.github.io/Weather-Dashboard/)
